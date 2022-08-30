@@ -7,7 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
-  const request = await ParserService.getFilmInfo();
+  const service = await app.get(ParserService);
+  const request = service.getFilmInfo();
   app.useLogger(new MyLogger());
   await app.listen(3000);
 }
