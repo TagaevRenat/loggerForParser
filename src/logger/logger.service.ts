@@ -1,71 +1,87 @@
 import { ConsoleLogger, Injectable, Scope } from '@nestjs/common';
-const chalk = require('chalk');
+import * as chalk from 'chalk';
+import * as util from 'node:util';
+import { loggerEnum } from './logger.enum';
 
-@Injectable({ scope: Scope.TRANSIENT })
+@Injectable()
 export class MyLogger extends ConsoleLogger {
-  static object: string;
-  static log = console.log;
+  private console = console.log;
 
-  checkVariable(variable: string | Array<any> | {}) {
-    if (typeof variable === 'object' && !Array.isArray(variable)) {
-      MyLogger.object = JSON.stringify(variable);
-      return MyLogger.object;
-    }
-    return variable;
-  }
-
-  log(message: string, variable?: string | Array<any> | {}): void {
-    let context: string = this.context;
+  private pushLogIntoConsole(typeOfLog, context, message?, variable?) {
     const time: string = new Date().toLocaleString();
     if (!context) {
       context = 'global';
     }
-    MyLogger.log(
-      `[${chalk.bold(time)}], ${chalk.bold.bgGreen('LOG')} - ${chalk.green(
-        message,
-      )}, Variable - ${chalk.underline(
-        variable ? this.checkVariable(variable) : 'no variable send',
-      )}, ${'context' + ' - ' + chalk.underline(context)}`,
-    );
+    switch (typeOfLog) {
+      case 'LOG':
+        this.console(
+          `[${chalk.bold(time)}], ${chalk.bold.bgGreen('LOG')} - ${chalk.green(
+            message,
+          )}, Variable - ${chalk.underline(
+            variable ? util.inspect(variable) : 'no variable send',
+          )}, ${'context' + ' - ' + chalk.underline(context)}`,
+        );
+        break;
+
+      case 'ERROR':
+        this.console(
+          `[${chalk.bold(time)}], ${chalk.bold.bgRed('ERROR')} - ${chalk.red(
+            message,
+          )}, Variable - ${chalk.underline(
+            variable ? util.inspect(variable) : 'no variable send',
+          )}, ${'context' + ' - ' + chalk.underline(context)}`,
+        );
+        console.trace();
+        break;
+
+      case 'WARN':
+        this.console(
+          `[${chalk.bold(time)}], ${chalk.bold.bgYellow(
+            'WARN',
+          )} - ${chalk.yellow(message)}, Variable - ${chalk.underline(
+            variable
+              ? util.inspect(variable, { colors: true })
+              : 'no variable send',
+          )}, ${'context' + ' - ' + chalk.underline(context)}`,
+        );
+        console.trace();
+        break;
+
+      case 'DEBUG':
+        this.console(
+          `[${chalk.bold(time)}], ${chalk.bold.bgCyan('DEBUG')} -  `,
+        );
+        console.trace();
+        break;
+    }
   }
 
-  error(error: any, variable?: string | Array<any> | {}): void {
-    let time: string = new Date().toLocaleString();
+  public log(
+    message: string,
+    variable?: string | Array<any> | Record<any, any>,
+  ): void {
     let context: string = this.context;
-    if (!context) {
-      context = 'global';
-    }
-    MyLogger.log(
-      `[${chalk.bold(time)}], ${chalk.bold.bgRed('ERROR')} - ${chalk.red(
-        error.message,
-      )}, Variable - ${chalk.underline(
-        variable ? this.checkVariable(variable) : 'no variable send',
-      )}, ${'context' + ' - ' + chalk.underline(context)}`,
-    );
+    this.pushLogIntoConsole(loggerEnum.log, context, message, variable);
   }
 
-  warn(message: string, variable?: string | Array<any> | {}): void {
-    let time: string = new Date().toLocaleString();
+  public error(
+    error: any,
+    variable?: string | Array<any> | Record<any, any>,
+  ): void {
     let context: string = this.context;
-    if (!context) {
-      context = 'global';
-    }
-    MyLogger.log(
-      `[${chalk.bold(time)}], ${chalk.bold.bgYellow('LOG')} - ${chalk.yellow(
-        message,
-      )}, Variable - ${chalk.underline(
-        variable ? this.checkVariable(variable) : 'no variable send',
-      )}, ${'context' + ' - ' + chalk.underline(context)}`,
-    );
+    this.pushLogIntoConsole(loggerEnum.error, context, error.message, variable);
   }
 
-  debug(error: any): void {
-    let time: string = new Date().toLocaleString();
+  public warn(
+    message: string,
+    variable?: string | Array<any> | Record<any, any>,
+  ): void {
     let context: string = this.context;
-    if (!context) {
-      context = 'global';
-    }
-    MyLogger.log(`[${chalk.bold(time)}], ${chalk.bold.bgCyan('DEBUG')} -  `);
-    console.trace();
+    this.pushLogIntoConsole(loggerEnum.warn, context, message, variable);
+  }
+
+  public debug(error: any): void {
+    let context: string = this.context;
+    this.pushLogIntoConsole(loggerEnum.debug, context);
   }
 }

@@ -4,6 +4,5 @@ import { TmdbParserModule } from './tmdb_parser/tmdb_parser.module';
 
 @Module({
   imports: [TmdbParserModule, LoggerModule],
-  controllers: [],
 })
 export class AppModule {}

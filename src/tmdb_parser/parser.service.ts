@@ -26,7 +26,7 @@ export class ParserService {
       this.myLogger.log('Log message');
     } catch (error) {
       this.myLogger.warn('warn message');
-      this.myLogger.error(error, [1, 2, 3]);
+      this.myLogger.error(error, { name: 'renat' });
       this.myLogger.debug(error);
     }
   }
