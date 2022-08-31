@@ -1,4 +1,4 @@
-export enum loggerEnum {
+export enum loggerTypes {
   log = 'LOG',
   error = 'ERROR',
   warn = 'WARN',

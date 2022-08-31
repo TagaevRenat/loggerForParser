@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import * as util from 'node:util';
 import { MyLogger } from '../logger/logger.service';
 
 @Injectable()
@@ -19,13 +20,13 @@ export class ParserService {
       const film: Film = {
         title: response.data.title,
       };
-      // console.log(film);
+      console.log(util.inspect(film));
       if (response.statusText !== 'OK') {
         throw new Error(`response status - ${response.status}`);
       }
       this.myLogger.log('Log message');
     } catch (error) {
-      this.myLogger.warn('warn message');
+      this.myLogger.warn('');
       this.myLogger.error(error, { name: 'renat' });
       this.myLogger.debug(error);
     }
