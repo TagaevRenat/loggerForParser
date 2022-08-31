@@ -43,15 +43,15 @@ export class MyLogger extends ConsoleLogger {
     if (!context) {
       context = 'global';
     }
-    typeOfLog === 'DEBUG';
-    this.console(
-      `[${chalk.bold(time)}], ${this.setColor(typeOfLog)} - ${
-        message ? this.setColor(typeOfLog, message) : 'no message'
-      }, Variable - ${chalk.underline(
-        variable ? util.inspect(variable) : 'no variable send',
-      )}, ${'context' + ' - ' + chalk.underline(context)}`,
-    );
-    typeOfLog !== 'LOG' ? console.trace() : null;
+    const fromatedMessage = `[${chalk.bold(time)}], ${this.setColor(
+      typeOfLog,
+    )} - ${
+      message ? this.setColor(typeOfLog, message) : 'no message'
+    }, Variable - ${chalk.underline(
+      variable ? util.inspect(variable) : 'no variable send',
+    )}, ${'context' + ' - ' + chalk.underline(context)}`;
+    this.console(fromatedMessage);
+    typeOfLog !== loggerTypes.log ? console.trace() : null;
   }
 
   //Функция для определения цвета лога
