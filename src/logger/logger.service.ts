@@ -40,18 +40,18 @@ export class MyLogger extends ConsoleLogger {
   //Конструктор выводов в консоль
   private outputConstructor(typeOfLog, context?, message?, variable?): void {
     const time: string = new Date().toLocaleString();
+    
     if (!context) {
       context = 'global';
     }
-    typeOfLog === 'DEBUG';
-    this.console(
-      `[${chalk.bold(time)}], ${this.setColor(typeOfLog)} - ${
+    
+    const formatteddMessage = `[${chalk.bold(time)}], ${this.setColor(typeOfLog)} - ${
         message ? this.setColor(typeOfLog, message) : 'no message'
       }, Variable - ${chalk.underline(
         variable ? util.inspect(variable) : 'no variable send',
-      )}, ${'context' + ' - ' + chalk.underline(context)}`,
-    );
-    typeOfLog !== 'LOG' ? console.trace() : null;
+      )}, ${'context' + ' - ' + chalk.underline(context)}`;
+    
+    typeOfLog !== loggerTypes.log ? console.trace(formatteddMessage) : this.console(formatteddMessage);
   }
 
   //Функция для определения цвета лога
