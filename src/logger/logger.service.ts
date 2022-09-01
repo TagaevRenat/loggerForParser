@@ -3,6 +3,7 @@ import * as chalk from 'chalk';
 import * as util from 'node:util';
 import { loggerTypes } from './logger-types.enum';
 import { loggerStyles } from './logger-styles';
+import { Log } from 'libs/db-lib/src/entities/etity';
 
 @Injectable()
 export class MyLogger extends ConsoleLogger {
@@ -52,6 +53,8 @@ export class MyLogger extends ConsoleLogger {
     )}, ${'context' + ' - ' + chalk.underline(context)}`;
     this.console(fromatedMessage);
     typeOfLog !== loggerTypes.log ? console.trace() : null;
+    const insert = Log.createNewRecord(typeOfLog, message, time);
+    console.log(insert);
   }
 
   //Функция для определения цвета лога

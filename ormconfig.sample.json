@@ -1,0 +1,20 @@
+{
+  "type": "mysql",
+  "host": "127.0.0.1",
+  "port": 3306,
+  "username": "root",
+  "password": "password",
+  "database": "projects",
+  "charset": "utf8mb4",
+  "entities": [
+    "./dist/apps/parser-service/libs/db-lib/src/entities/*.entity{ .ts,.js}",
+    "./dist/apps/top-parser/libs/db-lib/src/entities/*.entity{ .ts,.js}"
+  ],
+  "migrations": [
+    "./dist/migration/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/migration"
+  },
+  "synchronize": false
+}
