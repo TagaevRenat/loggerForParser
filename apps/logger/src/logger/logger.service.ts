@@ -1,9 +1,9 @@
 import { ConsoleLogger, Injectable, Scope } from '@nestjs/common';
-import * as chalk from 'chalk';
+import { bold, underline } from 'chalk';
 import * as util from 'node:util';
 import { loggerTypes } from './logger-types.enum';
 import { loggerStyles } from './logger-styles';
-import { Log } from 'libs/db-lib/src/entities/etity';
+import { Logs } from 'libs/db-lib/src/entities/etity';
 
 @Injectable()
 export class MyLogger extends ConsoleLogger {
@@ -39,22 +39,29 @@ export class MyLogger extends ConsoleLogger {
   }
 
   //Конструктор выводов в консоль
-  private outputConstructor(typeOfLog, context?, message?, variable?): void {
+  private async outputConstructor(
+    typeOfLog,
+    context?,
+    message?,
+    variable?,
+  ): Promise<void> {
     const time: string = new Date().toLocaleString();
     if (!context) {
       context = 'global';
     }
-    const fromatedMessage = `[${chalk.bold(time)}], ${this.setColor(
-      typeOfLog,
-    )} - ${
+    const fromatedMessage = `[${bold(time)}], ${this.setColor(typeOfLog)} - ${
       message ? this.setColor(typeOfLog, message) : 'no message'
-    }, Variable - ${chalk.underline(
+    }, Variable - ${underline(
       variable ? util.inspect(variable) : 'no variable send',
-    )}, ${'context' + ' - ' + chalk.underline(context)}`;
+    )}, ${'context' + ' - ' + underline(context)}`;
     this.console(fromatedMessage);
     typeOfLog !== loggerTypes.log ? console.trace() : null;
-    const insert = Log.createNewRecord(typeOfLog, message, time);
-    console.log(insert);
+    try {
+      const insert = await Logs.createNewRecord(typeOfLog, message, time);
+      console.log(insert);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   //Функция для определения цвета лога

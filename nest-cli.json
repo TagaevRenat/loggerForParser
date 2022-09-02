@@ -1,5 +1,40 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "apps/logger/src",
+  "monorepo": true,
+  "root": "apps/logger",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/logger/tsconfig.app.json"
+  },
+  "projects": {
+    "logger": {
+      "type": "application",
+      "root": "apps/logger",
+      "entryFile": "main",
+      "sourceRoot": "apps/logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/logger/tsconfig.app.json"
+      }
+    },
+    "nest-practice": {
+      "type": "application",
+      "root": "apps/nest-practice",
+      "entryFile": "main",
+      "sourceRoot": "apps/nest-practice/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/nest-practice/tsconfig.app.json"
+      }
+    },
+    "db-lib": {
+      "type": "library",
+      "root": "libs/db-lib",
+      "entryFile": "index",
+      "sourceRoot": "libs/db-lib/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/db-lib/tsconfig.lib.json"
+      }
+    }
+  }
 }

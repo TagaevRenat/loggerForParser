@@ -7,8 +7,7 @@
   "database": "projects",
   "charset": "utf8mb4",
   "entities": [
-    "./dist/apps/parser-service/libs/db-lib/src/entities/*.entity{ .ts,.js}",
-    "./dist/apps/top-parser/libs/db-lib/src/entities/*.entity{ .ts,.js}"
+      "C:\\Users\\Renat\\Desktop\\Porjects\\loggerForParser\\libs\\db-lib\\src\\entities\\etity.ts*.entity{ .ts,.js}"
   ],
   "migrations": [
     "./dist/migration/*.ts"

@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { createQueryBuilder } from 'typeorm';
-import { Log } from './entities/etity';
+import { DataSource } from 'typeorm';
+import { Logs } from './entities/etity';
 
 @Injectable()
 export class DbLibService {
+  constructor(private dataSource: DataSource) {}
   public async getAllLogs(): Promise<any> {
     try {
-      const allLogs = await createQueryBuilder().select('*').from(Log, 'log');
+      const allLogs = await this.dataSource
+        .createQueryBuilder()
+        .select('*')
+        .from(Logs, 'log');
 
       return allLogs;
     } catch (e) {
