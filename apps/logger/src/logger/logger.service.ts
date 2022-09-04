@@ -4,9 +4,13 @@ import * as util from 'node:util';
 import { loggerTypes } from './logger-types.enum';
 import { loggerStyles } from './logger-styles';
 import { Logs } from 'libs/db-lib/src/entities/etity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MyLogger extends ConsoleLogger {
+  constructor(private configService: ConfigService) {
+    super();
+  }
   private console = console.log;
   //Типы логов
   public log(
@@ -56,11 +60,21 @@ export class MyLogger extends ConsoleLogger {
     )}, ${'context' + ' - ' + underline(context)}`;
     this.console(fromatedMessage);
     typeOfLog !== loggerTypes.log ? console.trace() : null;
-    try {
-      const insert = await Logs.createNewRecord(typeOfLog, message, time);
-      console.log(insert);
-    } catch (error) {
-      console.log(error);
+
+    if (this.configService.get('INCERTLOGTODB') === 'true') {
+      console.log('inserting logs to database');
+      try {
+        const insert = await Logs.createNewRecord(typeOfLog, message, time);
+        console.log(insert);
+      } catch (error) {
+        console.log(error);
+      }
+      interface DatabaseConfig {
+        host: string;
+        port: number;
+      }
+    } else {
+      console.log('not inserting logs to database');
     }
   }
 

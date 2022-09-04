@@ -21,5 +21,3 @@ import { Logs } from './entities/etity';
   exports: [DbLibService],
 })
 export class DbLibModule {}
-
-// 'dist/libs/db-lib/src/entities/*.js';

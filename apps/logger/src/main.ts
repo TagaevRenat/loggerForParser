@@ -9,7 +9,7 @@ async function bootstrap() {
   });
   const service = await app.get(ParserService);
   const request = service.getFilmInfo();
-  app.useLogger(new MyLogger());
+  app.useLogger(app.get(MyLogger));
   await app.listen(3000);
 }
 bootstrap();
