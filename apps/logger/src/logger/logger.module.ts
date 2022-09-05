@@ -6,11 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   providers: [MyLogger],
   exports: [MyLogger],
-  imports: [
-    DbLibModule,
-    ConfigModule.forRoot({
-      // isGlobal: true,
-    }),
-  ],
+  imports: [DbLibModule, ConfigModule.forRoot({})],
 })
 export class LoggerModule {}

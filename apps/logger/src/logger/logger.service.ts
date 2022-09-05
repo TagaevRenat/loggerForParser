@@ -69,10 +69,6 @@ export class MyLogger extends ConsoleLogger {
       } catch (error) {
         console.log(error);
       }
-      interface DatabaseConfig {
-        host: string;
-        port: number;
-      }
     } else {
       console.log('not inserting logs to database');
     }
