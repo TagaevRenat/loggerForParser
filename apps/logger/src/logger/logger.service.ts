@@ -3,8 +3,8 @@ import { bold, underline } from 'chalk';
 import * as util from 'node:util';
 import { loggerTypes } from './logger-types.enum';
 import { loggerStyles } from './logger-styles';
-import { Logs } from 'libs/db-lib/src/entities/etity';
 import { ConfigService } from '@nestjs/config';
+import { Logs } from '@app/db-lib/entities/etity';
 
 @Injectable()
 export class MyLogger extends ConsoleLogger {

@@ -25,7 +25,7 @@
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "@nestjs/typeorm": "^9.0.1",
+    "@nestjs/typeorm": "^7.1.5",
     "@types/chalk": "^2.2.0",
     "axios": "^0.27.2",
     "chalk": "^4.1.2",
@@ -35,7 +35,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.9"
+    "typeorm": "^0.2.45",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -81,7 +82,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^db/db-lib(|/.*)$": "<rootDir>/libs/db-lib/src/$1"
+      "^db/db-lib(|/.*)$": "<rootDir>/libs/db-lib/src/$1",
+      "^libs/db-libs(|/.*)$": "<rootDir>/libs/db-libs/src/$1"
     }
   }
 }

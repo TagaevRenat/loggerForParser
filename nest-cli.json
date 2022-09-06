@@ -35,6 +35,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/db-lib/tsconfig.lib.json"
       }
+    },
+    "db-libs": {
+      "type": "library",
+      "root": "libs/db-libs",
+      "entryFile": "index",
+      "sourceRoot": "libs/db-libs/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/db-libs/tsconfig.lib.json"
+      }
     }
   }
 }

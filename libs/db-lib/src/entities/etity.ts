@@ -20,11 +20,12 @@ export class Logs extends BaseEntity {
     time: string,
   ): Promise<Logs> {
     try {
-      const log = await this.create({
+      const log = await this.getRepository().create({
         typeOfLog,
         message,
         time,
       });
+
       return await this.save(log);
     } catch (error) {
       console.log(error);

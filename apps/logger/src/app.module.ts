@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DbLibModule } from 'libs/db-lib/src';
+import { DbLibModule } from '@app/db-lib/index';
 import { TmdbParserModule } from './tmdb_parser/tmdb_parser.module';
 
 @Module({

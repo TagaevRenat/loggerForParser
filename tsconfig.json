@@ -20,15 +20,15 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@app/db-lib": [
-        "C:\\Users\\Renat\\Desktop\\Porjects\\loggerForParser\\libs\\db-lib\\src\\*"
+        "libs/db-lib/src/*"
       ],
       "@app/db-lib/*": [
         "libs/db-lib/src/*"
       ],
-      "db/db-lib": [
+      "@db/db-lib": [
         "libs/db-lib/src"
       ],
-      "db/db-lib/*": [
+      "@db/db-lib/*": [
         "libs/db-lib/src/*"
       ]
     }
