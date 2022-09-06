@@ -18,15 +18,6 @@
         "tsConfigPath": "apps/logger/tsconfig.app.json"
       }
     },
-    "nest-practice": {
-      "type": "application",
-      "root": "apps/nest-practice",
-      "entryFile": "main",
-      "sourceRoot": "apps/nest-practice/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/nest-practice/tsconfig.app.json"
-      }
-    },
     "db-lib": {
       "type": "library",
       "root": "libs/db-lib",
@@ -34,15 +25,6 @@
       "sourceRoot": "libs/db-lib/src",
       "compilerOptions": {
         "tsConfigPath": "libs/db-lib/tsconfig.lib.json"
-      }
-    },
-    "db-libs": {
-      "type": "library",
-      "root": "libs/db-libs",
-      "entryFile": "index",
-      "sourceRoot": "libs/db-libs/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/db-libs/tsconfig.lib.json"
       }
     }
   }
